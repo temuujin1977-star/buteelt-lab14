@@ -1,0 +1,17 @@
+{
+  "name": "buteelt-lab14",
+  "version": "1.0.0",
+  "description": "Lab 14 Integration and API testing with Postman and Newman",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "newman run postman/collection.json -e postman/env.dev.json",
+    "test:ci": "newman run postman/collection.json -e postman/env.ci.json --reporters cli,json --reporter-json-export reports/api.json && node scripts/json-to-html.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}
