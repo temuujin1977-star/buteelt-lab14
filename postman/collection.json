@@ -90,11 +90,22 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Newman chained task\",\n  \"status\": \"todo\"\n}"
+              "raw": "{\n  \"title\": \"{{randomTaskTitle}}\",\n  \"status\": \"{{initialStatus}}\"\n}"
             },
             "url": "{{baseUrl}}/tasks"
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const randomTitle = `Newman chained task ${Date.now()}`;",
+                  "pm.environment.set('randomTaskTitle', randomTitle);",
+                  "pm.environment.set('initialStatus', 'todo');"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -106,8 +117,8 @@
                   "pm.test('created task has id and expected title', function () {",
                   "  const json = pm.response.json();",
                   "  pm.expect(json.id).to.be.a('number');",
-                  "  pm.expect(json.title).to.eql('Newman chained task');",
-                  "  pm.expect(json.status).to.eql('todo');",
+                  "  pm.expect(json.title).to.eql(pm.environment.get('randomTaskTitle'));",
+                  "  pm.expect(json.status).to.eql(pm.environment.get('initialStatus'));",
                   "  pm.environment.set('createdTaskId', json.id);",
                   "});",
                   "pm.test('created task business rule is valid', function () {",
@@ -164,11 +175,21 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Updated Lab14 task\",\n  \"status\": \"doing\"\n}"
+              "raw": "{\n  \"title\": \"{{updatedTaskTitle}}\",\n  \"status\": \"{{updatedStatus}}\"\n}"
             },
             "url": "{{baseUrl}}/tasks/{{createdTaskId}}"
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('updatedTaskTitle', 'Updated Lab14 task');",
+                  "pm.environment.set('updatedStatus', 'doing');"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -179,8 +200,8 @@
                   "});",
                   "pm.test('task is updated', function () {",
                   "  const json = pm.response.json();",
-                  "  pm.expect(json.title).to.eql('Updated Lab14 task');",
-                  "  pm.expect(json.status).to.eql('doing');",
+                  "  pm.expect(json.title).to.eql(pm.environment.get('updatedTaskTitle'));",
+                  "  pm.expect(json.status).to.eql(pm.environment.get('updatedStatus'));",
                   "});",
                   "pm.test('updated response has json header', function () {",
                   "  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
@@ -202,11 +223,20 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"done\"\n}"
+              "raw": "{\n  \"status\": \"{{patchedStatus}}\"\n}"
             },
             "url": "{{baseUrl}}/tasks/{{createdTaskId}}"
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('patchedStatus', 'done');"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -216,7 +246,7 @@
                   "  pm.response.to.have.status(200);",
                   "});",
                   "pm.test('status changed to done', function () {",
-                  "  pm.expect(pm.response.json().status).to.eql('done');",
+                  "  pm.expect(pm.response.json().status).to.eql(pm.environment.get('patchedStatus'));",
                   "});",
                   "pm.test('patched response time is under 1000ms', function () {",
                   "  pm.expect(pm.response.responseTime).to.be.below(1000);",
@@ -252,9 +282,18 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": "{{baseUrl}}/tasks/99999"
+            "url": "{{baseUrl}}/tasks/{{missingTaskId}}"
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('missingTaskId', Math.floor(Math.random() * 90000) + 10000);"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -304,6 +343,9 @@
                   "});",
                   "pm.test('validation error contains required keyword', function () {",
                   "  pm.expect(pm.response.json().error).to.include('required');",
+                  "});",
+                  "pm.test('negative test does not create task id', function () {",
+                  "  pm.expect(pm.response.json()).to.not.have.property('id');",
                   "});"
                 ]
               }
