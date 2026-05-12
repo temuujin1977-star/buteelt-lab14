@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Newman API Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; color: #1f2937; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #d1d5db; padding: 8px; text-align: left; }
+    th { background: #e5f3f8; }
+  </style>
+</head>
+<body>
+  <h1>Newman API Report</h1>
+  <p>Requests: 9, Assertions: 17, Failed: 0</p>
+  <table>
+    <thead><tr><th>Request</th><th>Status</th><th>Assertions</th><th>Failed</th></tr></thead>
+    <tbody><tr><td>Happy GET - health check</td><td>200</td><td>2</td><td>0</td></tr><tr><td>Happy GET - tasks list</td><td>200</td><td>2</td><td>0</td></tr><tr><td>POST create - create task and save id</td><td>201</td><td>2</td><td>0</td></tr><tr><td>GET by id - chained task</td><td>200</td><td>2</td><td>0</td></tr><tr><td>PUT update - chained task</td><td>200</td><td>2</td><td>0</td></tr><tr><td>PATCH update - status only</td><td>200</td><td>2</td><td>0</td></tr><tr><td>DELETE - chained task</td><td>204</td><td>1</td><td>0</td></tr><tr><td>Error case - task not found</td><td>404</td><td>2</td><td>0</td></tr><tr><td>Error case - validation</td><td>400</td><td>2</td><td>0</td></tr></tbody>
+  </table>
+</body>
+</html>
