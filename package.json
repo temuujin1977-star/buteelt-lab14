@@ -7,7 +7,7 @@
     "start": "node server/index.js",
     "test": "newman run postman/collection.json -e postman/env.dev.json",
     "test:report": "newman run postman/collection.json -e postman/env.dev.json --reporters cli,htmlextra --reporter-htmlextra-export reports/api.html",
-    "test:ci": "newman run postman/collection.json -e postman/env.ci.json --reporters cli,json --reporter-json-export reports/api.json && node scripts/json-to-html.js"
+    "test:ci": "newman run postman/collection.json -e postman/env.ci.json --reporters cli,htmlextra --reporter-htmlextra-export reports/api.html"
   },
   "dependencies": {
     "express": "^5.1.0"
