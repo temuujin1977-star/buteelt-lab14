@@ -11,7 +11,7 @@ Ene bie daaltaar Integration & API testing-iin undes boloh Postman collection zo
 - POST request-eer uusgesen task-iin `id`-g `createdTaskId` environment variable-d hadgalaad daraagiin request-uuded ashiglasan.
 - Newman CLI script beldsen.
 - GitHub Actions workflow nemj, push bolon pull request hiih ued test avtomataar ajillahaar bolgoson.
-- Newman JSON result-oos HTML report uusgeh script nemsen.
+- Newman `htmlextra` reporter ashiglan HTML report uusgeh tohirgoo nemsen.
 
 ## Sursan zuil
 
@@ -19,8 +19,12 @@ API test hiihdee zuvhun endpoint ajillaj baina uu gedgiig bish, status code, res
 
 ## Tulgarasan asuudal
 
-Newman HTML reporter dependency ni shine Newman version-toi zurchilduj baisan. Tiimees `newman-reporter-html` ashiglahgui, Newman JSON output uusgeed `scripts/json-to-html.js` script-eer `reports/api.html` tailan uusgeh shiidliig songoson.
+Ehnii ued engiin HTML reporter zurchil uusgej baisan. Tiimees `newman-reporter-htmlextra` ashiglan `reports/api.html` tailang local bolon CI deer neg adil uusgeheer shiidsen.
 
 ## Dugnel
 
-Lab 14-iin zorilgo boloh Integration & API testing-iig jijig Express API deer heregjuulsen. Collection ni 8-aas deesh request-tei, buh gol HTTP method-uudiig ashiglasan, error case bolon chained request-iig bagtaasan. CI workflow ni test-iig dahin davtan ajilluulah bolomjtoi bolgoson.
+Lab 14-iin zorilgo boloh Integration & API testing-iig jijig Express API deer heregjuulsen. Collection ni 8-aas deesh request-tei, buh gol HTTP method-uudiig ashiglasan, error case bolon chained request-iig bagtaasan. CI workflow ni test-iig dahin davtan ajilluulah, HTML report-iig artifact bolgon hadgalah bolomjtoi bolgoson.
+
+## G hesgiin dugnelt
+
+G hesegt Newman CLI bolon GitHub Actions workflow-iig production-ready helbert oruulsan. Local deer `npm run test:report`, CI deer `npm run test:ci` command ajillaj, ali ali ni `reports/api.html` tailan uusgene. Workflow ni dependency suulgah, API server asaah, health check hiih, Newman collection ajilluulah, tailan upload hiih daraallaar ajillana.
