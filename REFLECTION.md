@@ -18,4 +18,4 @@ Ene project ni token shaardahgui uuriin local Express API ashiglasan. Tiimees re
 
 ## 5. API uurchlugduhud collection-iin aldaa yu heleh ve?
 
-API endpoint, response body, status code uurchlugduhud Newman test fail bolj, ali request deer yamar assertion unasan gedgiig shuud haruulna. Ene ni testiin yamar hesgiig shinechleh heregtei, esvel API deer regression garsan uu gedgiig ylgan oilgohod tusalna. CI deer fail bolbol merge/push-iin daraa aldaag ert ilruulne.
+API endpoint, response body, status code uurchlugduhud Newman test fail bolj, ali request deer yamar assertion unasan gedgiig shuud haruulna. Ene ni testiin yamar hesgiig shinechleh heregtei, esvel API deer regression garsan uu gedgiig ylgan oilgohod tusalna. CI deer fail bolbol merge/push-iin daraa aldaag ert ilruulne. 
