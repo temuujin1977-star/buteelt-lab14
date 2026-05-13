@@ -11,7 +11,7 @@ Udirdamjiin **Huvilbar 3 - jijig Express/FastAPI server**-iig songoson. Express 
 | File/Folder | Tailbar |
 | --- | --- |
 | `server/index.js` | Test hiih jijig Express REST API |
-| `postman/collection.json` | 9 request, 17 assertion buhii Postman collection |
+| `postman/collection.json` | 9 request, 28 assertion buhii Postman collection |
 | `postman/env.dev.json` | Local development environment |
 | `postman/env.staging.json` | Staging environment jishee |
 | `postman/env.prod.json` | Prod environment jishee |
@@ -59,7 +59,13 @@ Postman/Newman test local deer ajilluulah:
 npm test
 ```
 
-CI-tei adil JSON bolon HTML report uusgeh:
+Newman HTML report local deer uusgeh:
+
+```bash
+npm run test:report
+```
+
+CI-tei adil HTML report uusgeh:
 
 ```bash
 npm run test:ci
@@ -85,7 +91,44 @@ GitHub Actions ni `main` branch ruu push hiih bolon pull request uusgeh ued ajil
 
 1. Repository checkout hiine.
 2. Node.js 24 beldene.
-3. `npm install` ajilluulna.
+3. `npm ci` ajilluulj dependency suulgana.
 4. API server asaana.
-5. `npm run test:ci` ajilluulna.
-6. `reports/api.html` tailang artifact bolgoj hadgalna.
+5. `/health` endpoint deer health check hiine.
+6. `npm run test:ci` ajilluulna.
+7. `reports/api.html` tailang artifact bolgoj hadgalna.
+
+## G heseg - Newman ba GitHub Actions
+
+G hesegt Newman CLI bolon GitHub Actions ashiglan Postman collection-iig command line deer avtomataar ajilluulah tohirgoo hiisen.
+
+Local Newman command:
+
+```bash
+newman run postman/collection.json -e postman/env.dev.json
+```
+
+HTML report uusgeh command:
+
+```bash
+npm run test:report
+```
+
+CI deer ashiglagdah command:
+
+```bash
+npm run test:ci
+```
+
+GitHub Actions workflow file:
+
+```text
+.github/workflows/api-tests.yml
+```
+
+Report output:
+
+```text
+reports/api.html
+```
+
+CI workflow ni push bolon pull request hiih ued Newman test ajilluulaad HTML report-iig artifact bolgon hadgalna.
